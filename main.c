@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/04 21:27:03 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/12 22:48:25 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/21 01:20:47 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,23 @@ int		main(void)
 	c = 'c';
 	d = 515312;
 
+	printf("\033[0;33m");
+	len_mine = ft_printf("ft_printf: %.5s%7s\n", "yo", "boi");
+	len_original = printf("printf:    %.5s%7s\n", "yo", "boi");
+	if (len_mine == len_original)
+	{
 
+		printf("\033[1;32m");
+		printf("SUCCESS ON LEN\n\n");
+		printf("\033[0m");
+	}
+	else
+	{
+		printf("\033[1;31m");
+		printf("FAIL ON LEN\n");
+		printf("LENGTHS: my printf: %d -- original printf: %d\n\n\n", len_mine, len_original);
+		printf("\033[0m");
+	}
 /* ----------------------------------------------------------------- */
 
 	printf("\033[0;33m");

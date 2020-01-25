@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 23:19:44 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/05 01:54:50 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/20 17:00:37 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int		ft_count_spaces(t_printf *format, int len, int arg)
 	return (spaces);
 }
 
-int		ft_count_spaces_string(t_printf *format, int len)
+int		ft_count_spaces_string(t_printf format, int len)
 {
 	int		spaces;
 
 	spaces = 0;
-	if (format->width > len)
-		spaces = format->width - len;
+	if (format.width > len)
+		spaces = format.width - len;
 	return (spaces);
 }
 

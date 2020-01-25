@@ -6,24 +6,22 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/04 20:48:08 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/07 23:34:34 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/21 00:15:30 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		ft_printf_check_all(char **input_str, int width, int precision, \
+int		ft_printf_check_all(t_printf *format, int width, int precision, \
 								void *arg)
 {
-	t_printf	*format;
 	int			len;
 
 	len = 0;
-	format = malloc(sizeof(t_printf));
-	ft_printf_check_flag(input_str, format);
-	ft_printf_check_width(input_str, format, width);
-	ft_printf_check_precision(input_str, format, precision);
-	ft_printf_check_specifier(input_str, format);
+	ft_printf_check_flag(format);
+	ft_printf_check_width(format, width);
+	ft_printf_check_precision(format, precision);
+	ft_printf_check_specifier(format);
 	if (format->specifier == 'c')
 		len = ft_printf_char(format, (char)arg);
 	if (format->specifier == 'i' || format->specifier == 'd')
@@ -38,39 +36,34 @@ int		ft_printf_check_all(char **input_str, int width, int precision, \
 		len = ft_printf_address(format, (unsigned long)arg);
 	if (format->specifier == '%')
 		len = ft_printf_percentage(format);
-	free(format);
 	return (len);
 }
 
-void	ft_printf_check_flag(char **input_str, t_printf *format)
+void	ft_printf_check_flag(t_printf *format)
 {
-	format->flag_minus = FALSE;
-	format->flag_zero = FALSE;
-	format->flag_plus = FALSE;
-	format->flag_space = FALSE;
-	while (ft_flag_checker(input_str) == TRUE)
+	while (ft_flag_checker(format->input_str) == TRUE)
 	{
-		if (**input_str == '-')
+		if (*(format->input_str) == '-')
 			format->flag_minus = TRUE;
-		else if (**input_str == '0')
+		else if (*(format->input_str) == '0')
 			format->flag_zero = TRUE;
-		else if (**input_str == '+')
+		else if (*(format->input_str) == '+')
 			format->flag_plus = TRUE;
-		else if (**input_str == ' ')
+		else if (*(format->input_str) == ' ')
 			format->flag_space = TRUE;
-		(*input_str)++;
+		format->input_str++;
 	}
 }
 
-void	ft_printf_check_width(char **input_str, t_printf *format, int width)
+void	ft_printf_check_width(t_printf *format, int width)
 {
 	int length;
 
 	length = 0;
 	format->width = width;
-	if (**input_str == '*')
+	if (*(format->input_str) == '*')
 	{
-		(*input_str)++;
+		format->input_str++;
 		if (format->width < 0)
 		{
 			format->flag_minus = TRUE;
@@ -78,49 +71,47 @@ void	ft_printf_check_width(char **input_str, t_printf *format, int width)
 		}
 		return ;
 	}
-	if (ft_isdigit(**input_str) == 1)
+	if (ft_isdigit(*(format->input_str)) == 1)
 	{
-		format->width = ft_atoi_modified(*input_str, &length);
+		format->width = ft_atoi_modified(format->input_str, &length);
 	}
 	while (length > 0)
 	{
-		(*input_str)++;
+		format->input_str++;
 		length--;
 	}
 }
 
-void	ft_printf_check_precision(char **input_str, t_printf *format, \
-										int precision)
+void	ft_printf_check_precision(t_printf *format, int precision)
 {
 	int length;
 
 	length = 0;
 	format->precision = precision;
-	format->precision_check = FALSE;
-	if (**input_str == '.')
+	if (*(format->input_str) == '.')
 	{
-		(*input_str)++;
+		format->input_str++;
 		format->precision_check = TRUE;
 	}
-	if (**input_str == '*')
+	if (*(format->input_str) == '*')
 	{
-		(*input_str)++;
+		format->input_str++;
+		if (format->precision < 0)
+			format->precision_check = FALSE;
 		return ;
 	}
-	if (ft_isdigit(**input_str) == 1)
+	if (ft_isdigit(*(format->input_str)) == 1)
 	{
-		format->precision = ft_atoi_modified(*input_str, &length);
+		format->precision = ft_atoi_modified(format->input_str, &length);
+		if (format->precision < 0)
+			format->precision_check = FALSE;
 	}
-	while (length > 0)
-	{
-		(*input_str)++;
-		length--;
-	}
+	ft_loop_string(length, format);
 }
 
-void	ft_printf_check_specifier(char **input_str, t_printf *format)
+void	ft_printf_check_specifier(t_printf *format)
 {
-	if (ft_check_valid(**input_str) == 1)
-		format->specifier = **input_str;
-	(*input_str)++;
+	if (ft_check_valid(*(format->input_str)) == 1)
+		format->specifier = *(format->input_str);
+	format->input_str++;
 }

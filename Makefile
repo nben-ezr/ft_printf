@@ -6,7 +6,7 @@
 #    By: nben-ezr <nben-ezr@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/04 21:28:00 by nben-ezr       #+#    #+#                 #
-#    Updated: 2020/01/11 04:18:31 by nben-ezr      ########   odam.nl          #
+#    Updated: 2020/01/21 01:30:15 by nben-ezr      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = 	ft_printf.c				\
 		extra_functions.c		\
 		extra_functions2.c		\
 		extra_functions3.c		\
-		extra_functions4.c
+		extra_functions4.c		\
+		extra_functions5.c
 
 HEADER = includes/ft_printf.h
 

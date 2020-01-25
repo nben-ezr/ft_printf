@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 01:41:48 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/08 23:59:18 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/22 20:16:38 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,37 @@ int		ft_printf_string(t_printf *format, char *arg)
 {
 	size_t	len;
 	int		rlen;
-	int		padding;
 	int		malloc;
 
 	malloc = FALSE;
-	rlen = 0;
 	if (arg == NULL)
 	{
 		arg = ft_strdup("(null)");
+		if (malloc_check(arg, format) == FALSE)
+			return (0);
 		malloc = TRUE;
 	}
 	if (format->precision_check == TRUE && format->precision >= 0)
 	{
 		arg = ft_strndup(arg, format->precision);
+		if (malloc_check(arg, format) == FALSE)
+			return (0);
 		malloc = TRUE;
 	}
 	len = ft_strlen(arg);
-	padding = ft_count_spaces_string(format, len);
-	rlen = len + ft_printf_string2(format, arg, padding);
+	rlen = len + ft_printf_string2(format, arg, len);
 	if (malloc == TRUE)
 		free(arg);
 	return (rlen);
 }
 
-int		ft_printf_string2(t_printf *format, char *arg, int padding)
+int		ft_printf_string2(t_printf *format, char *arg, int len)
 {
 	int		rlen;
+	int		padding;
 
 	rlen = 0;
+	padding = ft_count_spaces_string(*format, len);
 	if (format->flag_minus == TRUE)
 	{
 		ft_putstr(arg);

@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 00:57:24 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/12 22:19:13 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/22 20:17:02 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ typedef struct	s_printf
 	int			precision;
 	char		specifier;
 	int			precision_check;
+	int			error_check;
+	char		*input_str;
 }				t_printf;
 
 int				ft_printf(char *str, ...);
-int				ft_printf_check_asterisk(va_list list, char **str);
-
-int				ft_printf_check_all(char **input_str, int width, int precision \
+int				ft_printf_check_asterisk(va_list list, t_printf *format);
+int				ft_printf_check_all(t_printf *format, int width, int precision \
 										, void *arg);
-void			ft_printf_check_flag(char **input_str, t_printf *format);
-void			ft_printf_check_width(char **input_str, t_printf *format, \
-										int width);
-void			ft_printf_check_precision(char **input_str, t_printf *format, \
+void			ft_printf_check_flag(t_printf *format);
+void			ft_printf_check_width(t_printf *format, int width);
+void			ft_printf_check_precision(t_printf *format, \
 											int precision);
-void			ft_printf_check_specifier(char **input_str, t_printf *format);
+void			ft_printf_check_specifier(t_printf *format);
 int				ft_printf_integer(t_printf *format, int arg);
 int				ft_printf_integer2(t_printf *format, int arg, \
 										int spaces, int zeroes);
@@ -55,7 +55,7 @@ int				ft_printf_hex_lower(t_printf *format, char *hex, int spaces, \
 int				ft_printf_hex_upper(t_printf *format, char *hex, int spaces, \
 									int zeroes);
 int				ft_printf_string(t_printf *format, char *arg);
-int				ft_printf_string2(t_printf *format, char *arg, int padding);
+int				ft_printf_string2(t_printf *format, char *arg, int len);
 int				ft_printf_percentage(t_printf *format);
 int				ft_printf_percentage2(t_printf *format, int arg, int spaces, \
 										int zeroes);
@@ -64,29 +64,34 @@ int				ft_printf_string(t_printf *format, char *arg);
 int				ft_printf_address(t_printf *format, unsigned long arg);
 int				ft_printf_address2(t_printf *format, char *hex, int spaces, \
 									int zeroes);
-int				ft_chrcount_till_conversion(char *str, char look_for);
-int				ft_check_asterisk(char *str, char look_for);
+
+int				ft_chrcount_till_conversion(char *input_str, char look_for);
+int				ft_check_asterisk(char *input_str, char look_for);
 int				ft_atoi_modified(const char *str, int *length);
-int				ft_count_length_unsigned(t_printf *format, unsigned int arg);
-int				ft_count_length(t_printf *format, int arg);
+int				ft_count_length_unsigned(t_printf format, unsigned int arg);
+int				ft_count_length(t_printf format, int arg);
 void			ft_putchar(char c);
 int				ft_isdigit(int c);
-int				ft_flag_checker(char **input_str);
+int				ft_flag_checker(char *input_str);
 int				ft_count_zeroes(t_printf *format, int len, int arg);
 int				ft_count_spaces(t_printf *format, int len, int arg);
-int				ft_count_spaces_string(t_printf *format, int len);
+int				ft_count_spaces_string(t_printf format, int len);
 int				ft_write_zeroes(int zeroes);
 int				ft_write_spaces(int spaces);
-void			ft_putnbr_check(t_printf *format, int arg);
-void			ft_putnbr_check_unsigned(t_printf *format, unsigned int arg);
+void			ft_putnbr_check(t_printf format, int arg);
+int				malloc_check(char *str, t_printf *format);
+void			ft_putnbr_check_unsigned(t_printf format, unsigned int arg);
 void			ft_putnbr(int nbr);
 void			ft_putnbr_unsigned(unsigned int nbr);
 int				ft_check_valid(char check);
 int				ft_check_valid_input(char *check);
+void			ft_loop_string(int length, t_printf *format);
+void			ft_initialize_struct(t_printf *format, char *input_str);
+void			ft_reinitialize_struct(t_printf *format);
 int				ft_strlen(char *str);
 void			ft_putstr(char *str);
-void			ft_putstr_check(t_printf *format, char *hex);
-void			ft_putstr_upper_check(t_printf *format, char *hex);
+void			ft_putstr_check(t_printf format, char *hex);
+void			ft_putstr_upper_check(t_printf format, char *hex);
 int				ft_toupper(int c);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 char			*ft_strdup(const char *s1);

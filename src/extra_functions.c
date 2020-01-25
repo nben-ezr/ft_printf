@@ -6,18 +6,18 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/04 22:49:14 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/08 23:31:05 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/21 00:38:28 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		ft_count_length(t_printf *format, int arg)
+int		ft_count_length(t_printf format, int arg)
 {
 	int len;
 
 	len = 0;
-	if (format->precision_check == TRUE && arg == 0)
+	if (format.precision_check == TRUE && arg == 0)
 		return (0);
 	else if (arg == 0)
 		return (1);
@@ -31,12 +31,12 @@ int		ft_count_length(t_printf *format, int arg)
 	return (len);
 }
 
-int		ft_count_length_unsigned(t_printf *format, unsigned int arg)
+int		ft_count_length_unsigned(t_printf format, unsigned int arg)
 {
 	int len;
 
 	len = 0;
-	if (format->precision_check == TRUE && arg == 0)
+	if (format.precision_check == TRUE && arg == 0)
 		return (0);
 	else if (arg == 0)
 		return (1);
@@ -62,11 +62,20 @@ int		ft_atoi_modified(const char *str, int *length)
 	return (outcome);
 }
 
-int		ft_flag_checker(char **input_str)
+int		ft_flag_checker(char *input_str)
 {
-	if (**input_str == '-' || **input_str == ' ' || \
-			**input_str == '+' || **input_str == '0')
+	if (*input_str == '-' || *input_str == ' ' || \
+			*input_str == '+' || *input_str == '0')
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+void	ft_loop_string(int length, t_printf *format)
+{
+	while (length > 0)
+	{
+		length--;
+		format->input_str++;
+	}
 }

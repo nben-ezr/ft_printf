@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/18 22:41:26 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/08 23:16:23 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/20 16:50:04 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_printf_address(t_printf *format, unsigned long arg)
 
 	rlen = 0;
 	hex = ft_ultoa_base(arg, 16);
-	if (hex == NULL)
+	if (malloc_check(hex, format) == FALSE)
 		return (0);
 	len = ft_strlen(hex) + 2;
 	if (len == 3 && arg == 0 && format->precision == 0 && \
@@ -49,7 +49,7 @@ int		ft_printf_address2(t_printf *format, char *hex, int spaces, int zeroes)
 	{
 		ft_putstr("0x");
 		rlen += ft_write_zeroes(zeroes);
-		ft_putstr_check(format, hex);
+		ft_putstr_check(*format, hex);
 		rlen += ft_write_spaces(spaces);
 	}
 	else if (format->precision_check == TRUE || format->flag_zero == FALSE)
@@ -57,13 +57,13 @@ int		ft_printf_address2(t_printf *format, char *hex, int spaces, int zeroes)
 		rlen += ft_write_spaces(spaces);
 		ft_putstr("0x");
 		rlen += ft_write_zeroes(zeroes);
-		ft_putstr_check(format, hex);
+		ft_putstr_check(*format, hex);
 	}
 	else if (format->precision_check == FALSE)
 	{
 		ft_putstr("0x");
 		rlen += ft_write_zeroes(spaces);
-		ft_putstr_check(format, hex);
+		ft_putstr_check(*format, hex);
 	}
 	return (rlen);
 }

@@ -6,33 +6,34 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/29 02:56:57 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/08 23:34:51 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/01/21 01:31:03 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		ft_chrcount_till_conversion(char *str, char look_for)
+int		ft_chrcount_till_conversion(char *input_str, char look_for)
 {
 	int	len;
 
 	len = 0;
-	while (*str != '\0' && ft_check_valid(*str) == 0)
+	while (*input_str != '\0' && \
+			ft_check_valid(*input_str) == 0)
 	{
-		if (*str == look_for)
+		if (*input_str == look_for)
 			len++;
-		str++;
+		input_str++;
 	}
 	return (len);
 }
 
-int		ft_check_asterisk(char *str, char look_for)
+int		ft_check_asterisk(char *input_str, char look_for)
 {
-	while (*str != '\0' && *str != '.')
+	while (*input_str != '\0' && *input_str != '.')
 	{
-		if (*str == look_for)
+		if (*input_str == look_for)
 			return (1);
-		str++;
+		input_str++;
 	}
 	return (0);
 }
@@ -61,4 +62,15 @@ int		ft_check_valid_input(char *check)
 		check++;
 	}
 	return (0);
+}
+
+int		malloc_check(char *str, t_printf *format)
+{
+	if (str == NULL)
+	{
+		format->error_check = TRUE;
+		return (FALSE);
+	}
+	else
+		return (TRUE);
 }
