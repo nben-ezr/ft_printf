@@ -6,7 +6,7 @@
 #    By: nben-ezr <nben-ezr@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/04 21:28:00 by nben-ezr       #+#    #+#                 #
-#    Updated: 2020/01/21 01:30:15 by nben-ezr      ########   odam.nl          #
+#    Updated: 2020/01/29 01:04:31 by nben-ezr      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make lib -C libft -j1
-	mv libft/libft.a .
-	ar rc $@ $(OBJS) libft.a
+	cp libft/libft.a ./$(NAME)
+	ar rcs $(NAME) $?
 
 fclean: clean
 	rm -f $(NAME)
