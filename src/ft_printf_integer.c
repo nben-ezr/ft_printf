@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 22:47:37 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/20 16:53:17 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/03/02 01:37:09 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_printf_integer2(t_printf *format, int arg, int spaces, int zeroes)
 int		ft_printf_integer3(t_printf *format, int arg)
 {
 	if (arg < 0 && (format->precision_check == TRUE || \
-					format->flag_zero == TRUE))
+					format->flag_zero == TRUE) && arg != -2147483648)
 	{
 		ft_putchar('-');
 		arg *= -1;

@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 03:07:06 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/22 20:05:44 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/03/02 01:38:52 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_check(t_printf format, int arg)
 {
-	if (arg > 0 || format.precision_check == FALSE)
+	if (arg > 0 || format.precision_check == FALSE || arg == -2147483648)
 		ft_putnbr(arg);
 }
 

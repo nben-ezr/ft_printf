@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 01:29:35 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/21 01:29:59 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/03/02 01:53:21 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,25 @@ void	ft_reinitialize_struct(t_printf *format)
 	format->width = 0;
 	format->precision = 0;
 	format->specifier = 0;
+}
+
+char	*ft_strndup2(const char *s1, size_t len, int bool)
+{
+	char	*s2;
+	size_t	i;
+
+	i = 0;
+	s2 = malloc((len + 1) * sizeof(char));
+	if (s2 == NULL)
+		return (0);
+	while (s1[i] != '\0' && len > 0)
+	{
+		s2[i] = s1[i];
+		i++;
+		len--;
+	}
+	s2[i] = '\0';
+	if (bool == TRUE)
+		free((char*)s1);
+	return (s2);
 }

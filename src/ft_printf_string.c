@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 01:41:48 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/22 20:16:38 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/02/29 05:36:40 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_printf_string(t_printf *format, char *arg)
 	}
 	if (format->precision_check == TRUE && format->precision >= 0)
 	{
-		arg = ft_strndup(arg, format->precision);
+		arg = ft_strndup2(arg, format->precision, malloc);
 		if (malloc_check(arg, format) == FALSE)
 			return (0);
 		malloc = TRUE;

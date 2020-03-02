@@ -6,14 +6,13 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/04 20:48:08 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/21 00:15:30 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/03/01 20:03:26 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		ft_printf_check_all(t_printf *format, int width, int precision, \
-								void *arg)
+int		ft_printf_check_all(t_printf *format, int width, int precision)
 {
 	int			len;
 
@@ -23,17 +22,17 @@ int		ft_printf_check_all(t_printf *format, int width, int precision, \
 	ft_printf_check_precision(format, precision);
 	ft_printf_check_specifier(format);
 	if (format->specifier == 'c')
-		len = ft_printf_char(format, (char)arg);
+		len = ft_printf_char(format, va_arg(format->list, int));
 	if (format->specifier == 'i' || format->specifier == 'd')
-		len = ft_printf_integer(format, (int)arg);
+		len = ft_printf_integer(format, va_arg(format->list, int));
 	if (format->specifier == 'u')
-		len = ft_printf_unsigned(format, (unsigned int)arg);
+		len = ft_printf_unsigned(format, va_arg(format->list, unsigned int));
 	if (format->specifier == 's')
-		len = ft_printf_string(format, (char*)arg);
+		len = ft_printf_string(format, va_arg(format->list, char*));
 	if (format->specifier == 'x' || format->specifier == 'X')
-		len = ft_printf_hex(format, (unsigned int)arg);
+		len = ft_printf_hex(format, va_arg(format->list, unsigned int));
 	if (format->specifier == 'p')
-		len = ft_printf_address(format, (unsigned long)arg);
+		len = ft_printf_address(format, va_arg(format->list, unsigned long));
 	if (format->specifier == '%')
 		len = ft_printf_percentage(format);
 	return (len);

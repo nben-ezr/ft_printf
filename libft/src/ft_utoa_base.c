@@ -6,7 +6,7 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 04:12:52 by nben-ezr       #+#    #+#                */
-/*   Updated: 2020/01/05 04:14:43 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/03/02 00:55:11 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_calc_length(unsigned int nbr, int base)
 	int length;
 
 	length = 0;
+	if (nbr == 0)
+		return (1);
 	while (nbr > 0)
 	{
 		nbr /= base;

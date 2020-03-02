@@ -6,19 +6,18 @@
 /*   By: nben-ezr <nben-ezr@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/18 23:24:27 by nben-ezr       #+#    #+#                */
-/*   Updated: 2019/12/29 02:24:32 by nben-ezr      ########   odam.nl         */
+/*   Updated: 2020/03/02 01:21:12 by nben-ezr      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-#include <stdio.h>
 
 static int	ft_calc_length(int nbr, int base)
 {
 	int length;
 
 	length = 0;
-	if (nbr < 0)
+	if (nbr <= 0)
 	{
 		length++;
 		nbr *= -1;
